@@ -1,36 +1,28 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio
 
-## Getting Started
+A personal portfolio site built with Next.js 16 and Tailwind CSS 4. It has a home page (intro, selected work, about, experience, toolkit and contact), a case-study page for each project, light and dark themes, and SEO extras (sitemap, robots.txt and a generated social preview image).
 
-First, run the development server:
+## Run it locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Make it yours
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+All of the text lives in [`content/site.ts`](content/site.ts). Edit it and every page updates:
 
-## Learn More
+- **`profile`**: your name, role, email, intro, about paragraphs and social links. In `headline` and `contactHeadline`, wrap words in `*asterisks*` to set them in the italic accent style.
+- **`projects`**: one entry per project. Each one gets its own page at `/projects/<slug>`. To show a screenshot instead of the generated title card, put an image in `public/` (for example `public/projects/ledger.jpg`) and set `cover: "/projects/ledger.jpg"`.
+- **`experience`** and **`skills`**: your work history and toolkit.
 
-To learn more about Next.js, take a look at the following resources:
+To change the colors, edit the tokens at the top of [`app/globals.css`](app/globals.css). The favicon is [`app/icon.svg`](app/icon.svg).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deploy
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The site is fully static, so it deploys anywhere that runs Next.js. On [Vercel](https://vercel.com/new), import the repository and it works with no extra setup.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+If you deploy somewhere else, set the `SITE_URL` environment variable to your domain (for example `https://yourname.com`) so the sitemap and social preview links point to the right place.

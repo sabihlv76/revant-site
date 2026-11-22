@@ -1,26 +1,117 @@
 @import "tailwindcss";
 
+/* Color tokens. Dark mode follows the system unless the visitor picks a
+   theme with the toggle, which sets data-theme on <html>. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --bg: #f3f0e8;
+  --surface: #e9e5da;
+  --fg: #161513;
+  --muted: #67635b;
+  --line: #d6d0c2;
+  --accent: #d9431a;
+  color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]) {
+    --bg: #11100e;
+    --surface: #1b1a17;
+    --fg: #ece8de;
+    --muted: #938e84;
+    --line: #2c2a26;
+    --accent: #ff6b3d;
+    color-scheme: dark;
   }
 }
 
+:root[data-theme="dark"] {
+  --bg: #11100e;
+  --surface: #1b1a17;
+  --fg: #ece8de;
+  --muted: #938e84;
+  --line: #2c2a26;
+  --accent: #ff6b3d;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-instrument-serif);
+}
+
+/* Page-width container used by every section. */
+@utility wrap {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+
+  @media (width >= 40rem) {
+    padding-inline: 2rem;
+  }
+}
+
+html {
+  background: var(--bg);
+  scroll-padding-top: 5rem;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Staggered entrance: add .rise and set --delay inline. */
+  .rise {
+    animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: var(--delay, 0ms);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+/* The theme toggle shows the icon for the theme it will switch to. */
+.theme-icon-light {
+  display: none;
+}
+:root[data-theme="dark"] .theme-icon-light {
+  display: block;
+}
+:root[data-theme="dark"] .theme-icon-dark {
+  display: none;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-icon-light {
+    display: block;
+  }
+  :root:not([data-theme="light"]) .theme-icon-dark {
+    display: none;
+  }
 }
